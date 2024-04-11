@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare Assistant</title>
+    <link rel="stylesheet" href="\static\css\style.css"> <!-- Link to your CSS file -->
+</head>
+<body>
+    <div class="container">
+        <h1>Healthcare Assistant</h1>
+        
+        <div class="section">
+            <h2>Report Symptoms</h2>
+            <form action="/symptoms" method="POST">
+                <label for="symptoms">Symptoms:</label><br>
+                <textarea id="symptoms" name="symptoms" rows="4" cols="50"></textarea><br>
+                <input type="submit" value="Submit">
+            </form>
+            {% if symptoms_result %}
+            <div class="result">
+                <h3>Symptoms Result</h3>
+                <ul>
+                    {% for line in symptoms_result.split('\n') %}
+                        {% if line %}
+                            <li>{{ line }}</li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="section">
+            <h2>Any prediagnoised Health Conditions</h2>
+            <form action="/conditions" method="POST">
+                <label for="conditions">Health Conditions:</label><br>
+                <textarea id="conditions" name="conditions" rows="4" cols="50"></textarea><br>
+                <input type="submit" value="Submit">
+            </form>
+            {% if conditions_result %}
+            <div class="result">
+                <h3>Conditions Result</h3>
+                <ul>
+                    {% for line in conditions_result.split('\n') %}
+                        {% if line %}
+                            <li>{{ line }}</li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="section">
+            <h2>Upload Lab Report</h2>
+            <form action="/labreport" method="POST" enctype="multipart/form-data">
+                <label for="lab_report">Upload Lab Report:</label><br>
+                <input type="file" id="lab_report" name="lab_report"><br>
+                <input type="submit" value="Submit">
+            </form>
+            {% if labreport_result %}
+            <div class="result">
+                <h3>Lab Report Result</h3>
+                <ul>
+                    {% for line in labreport_result.split('\n') %}
+                        {% if line %}
+                            <li>{{ line }}</li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
